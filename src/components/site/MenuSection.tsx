@@ -3,7 +3,7 @@ import { ArrowRight, Search, Share2, Sparkles, Check } from "lucide-react";
 import { categories, dishes, type CategoryId, type Dish } from "@/config/restaurant";
 import { Ornament, Reveal } from "./common";
 
-function DishCard({ dish, highlight }: { dish: Dish; highlight: boolean }) {
+function DishCard({ dish, highlight, index }: { dish: Dish; highlight: boolean; index: number }) {
   const [copied, setCopied] = useState(false);
   const [broken, setBroken] = useState(false);
 
