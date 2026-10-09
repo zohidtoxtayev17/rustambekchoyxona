@@ -79,12 +79,12 @@ export function MenuSection() {
 
   useEffect(() => {
     const m = window.location.hash.match(/^#taom-(.+)$/);
-    if (m && dishes.some((d) => d.id === m[1])) setTimeout(() => focusDish(m[1]), 300);
+    if (m && dishes.some((d) => d.id === m[1])) setTimeout(() => focusDish(m[1]!), 300);
   }, []);
 
   const suggest = () => {
     const pool = dishes.filter((d) => d.id !== suggestion?.id);
-    setSuggestion(pool[Math.floor(Math.random() * pool.length)]);
+    setSuggestion(pool[Math.floor(Math.random() * pool.length)] ?? null);
   };
 
   return (

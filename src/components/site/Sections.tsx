@@ -79,7 +79,7 @@ export function Gallery() {
 
       {idx !== null && (
         <div role="dialog" aria-modal="true" aria-label="Rasm ko‘rish" className="fixed inset-0 z-[60] flex animate-in fade-in items-center justify-center bg-forest-deep/95 p-4" onClick={close}
-          onTouchStart={(e) => (touch.current = e.touches[0].clientX)}
+          onTouchStart={(e) => (touch.current = e.touches[0]?.clientX ?? null)}
           onTouchEnd={(e) => {
             if (touch.current === null) return;
             const dx = (e.changedTouches[0]?.clientX ?? touch.current) - touch.current;
@@ -88,8 +88,8 @@ export function Gallery() {
           }}
         >
           <figure className="max-h-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
-            <img src={gallery[idx].src} alt={gallery[idx].alt} className="max-h-[80vh] w-auto rounded-xl object-contain" />
-            <figcaption className="mt-3 text-center text-sm text-on-dark-muted">{gallery[idx].alt}</figcaption>
+            <img src={gallery[idx]!.src} alt={gallery[idx]!.alt} className="max-h-[80vh] w-auto rounded-xl object-contain" />
+            <figcaption className="mt-3 text-center text-sm text-on-dark-muted">{gallery[idx]!.alt}</figcaption>
           </figure>
           <button autoFocus onClick={close} className="absolute right-4 top-4 inline-flex h-12 w-12 items-center justify-center rounded-full text-on-dark hover:text-gold" aria-label="Yopish"><X className="h-6 w-6" /></button>
           <button onClick={(e) => { e.stopPropagation(); step(-1); }} className="absolute left-2 top-1/2 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full text-on-dark hover:text-gold" aria-label="Oldingi rasm"><ChevronLeft className="h-7 w-7" /></button>
