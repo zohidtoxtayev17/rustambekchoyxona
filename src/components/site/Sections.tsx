@@ -82,7 +82,7 @@ export function Gallery() {
           onTouchStart={(e) => (touch.current = e.touches[0].clientX)}
           onTouchEnd={(e) => {
             if (touch.current === null) return;
-            const dx = e.changedTouches[0].clientX - touch.current;
+            const dx = (e.changedTouches[0]?.clientX ?? touch.current) - touch.current;
             if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
             touch.current = null;
           }}

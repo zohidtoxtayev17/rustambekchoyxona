@@ -11,10 +11,10 @@ const description = "An’anaviy o‘zbek taomlari va unutilmas choyxona muhiti:
 function structuredData() {
   const c = restaurant.contact;
   const data: Record<string, unknown> = { "@context": "https://schema.org", "@type": "Restaurant", name: restaurant.name, servesCuisine: "O‘zbek oshxonasi" };
-  if (c.phone) data.telephone = c.phone;
-  if (c.address) data.address = c.address;
+  if (c.phone) data["telephone"] = c.phone;
+  if (c.address) data["address"] = c.address;
   const same = [c.telegram, c.instagram].filter(Boolean);
-  if (same.length) data.sameAs = same;
+  if (same.length) data["sameAs"] = same;
   return JSON.stringify(data);
 }
 
