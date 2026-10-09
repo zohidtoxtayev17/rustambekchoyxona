@@ -106,10 +106,8 @@
 }
 
 @utility reveal {
-  opacity: 0;
-  transform: translateY(16px);
   transition: opacity 600ms ease, transform 600ms ease;
-  &.is-visible { opacity: 1; transform: none; }
+  :where(html.js) &:not(.is-visible) { opacity: 0; transform: translateY(16px); }
 }
 
 @keyframes fade-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
@@ -120,3 +118,16 @@
   *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* Menu cards: staggered entrance + desktop-only hover */
+@keyframes card-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.dish-card { animation: card-in 600ms ease both; transition: transform 250ms ease, box-shadow 250ms ease; }
+.dish-img { transition: transform 250ms ease; }
+.arrow-nudge { transition: transform 250ms ease; }
+@media (hover: hover) and (pointer: fine) {
+  .dish-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+  .dish-card:hover .dish-img { transform: scale(1.03); }
+  .group:hover .arrow-nudge, .group:focus-visible .arrow-nudge { transform: translateX(3px); }
+}
+@keyframes lightbox-in { from { opacity: 0; transform: scale(0.985); } to { opacity: 1; transform: none; } }
+.lightbox-img { animation: lightbox-in 300ms ease both; }

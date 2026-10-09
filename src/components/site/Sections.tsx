@@ -88,7 +88,7 @@ export function Gallery() {
           }}
         >
           <figure className="max-h-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
-            <img src={gallery[idx]!.src} alt={gallery[idx]!.alt} className="max-h-[80vh] w-auto rounded-xl object-contain" />
+            <img key={idx} src={gallery[idx]!.src} alt={gallery[idx]!.alt} className="lightbox-img max-h-[80vh] w-auto rounded-xl object-contain" />
             <figcaption className="mt-3 text-center text-sm text-on-dark-muted">{gallery[idx]!.alt}</figcaption>
           </figure>
           <button autoFocus onClick={close} className="absolute right-4 top-4 inline-flex h-12 w-12 items-center justify-center rounded-full text-on-dark hover:text-gold" aria-label="Yopish"><X className="h-6 w-6" /></button>
@@ -165,7 +165,7 @@ export function Contact() {
             <MapPin className="relative h-10 w-10 text-gold" strokeWidth={1.2} />
             <p className="relative mt-4 font-serif text-3xl text-on-dark">{restaurant.name}</p>
             <p className="relative mt-2 max-w-xs text-on-dark-muted">{c.address}</p>
-            <a href={c.mapUrl} target="_blank" rel="noopener noreferrer" className="relative mt-6 inline-flex min-h-12 items-center gap-2 rounded-full bg-gold px-6 text-sm font-semibold text-forest-deep transition-colors hover:bg-gold-soft">
+            <a href={c.mapUrl} target="_blank" rel="noopener noreferrer" className="relative mt-6 inline-flex min-h-12 items-center gap-2 rounded-full bg-gold px-6 text-sm font-semibold text-forest-deep transition-colors duration-300 hover:bg-gold-soft active:bg-gold-soft">
               <MapPin className="h-4 w-4" /> Xaritada ko‘rish
             </a>
           </div>

@@ -3,7 +3,7 @@ import { ArrowRight, Search, Share2, Sparkles, Check } from "lucide-react";
 import { categories, dishes, type CategoryId, type Dish } from "@/config/restaurant";
 import { Ornament, Reveal } from "./common";
 
-function DishCard({ dish, highlight }: { dish: Dish; highlight: boolean }) {
+function DishCard({ dish, highlight, index }: { dish: Dish; highlight: boolean; index: number }) {
   const [copied, setCopied] = useState(false);
   const [broken, setBroken] = useState(false);
 
@@ -25,7 +25,8 @@ function DishCard({ dish, highlight }: { dish: Dish; highlight: boolean }) {
   return (
     <article
       id={`taom-${dish.id}`}
-      className={`group flex flex-col overflow-hidden rounded-2xl bg-card shadow-card transition duration-200 hover:-translate-y-1 hover:shadow-card-hover ${
+      style={{ animationDelay: `${Math.min(index, 7) * 70}ms` }}
+      className={`dish-card group flex flex-col overflow-hidden rounded-2xl bg-card shadow-card ${
         highlight ? "ring-2 ring-gold ring-offset-4 ring-offset-cream" : ""
       }`}
     >
@@ -33,7 +34,7 @@ function DishCard({ dish, highlight }: { dish: Dish; highlight: boolean }) {
         {broken ? (
           <div className="flex h-full items-center justify-center font-serif text-2xl text-muted-foreground">{dish.name}</div>
         ) : (
-          <img src={dish.image} alt={dish.name} loading="lazy" width={1024} height={768} onError={() => setBroken(true)} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" />
+          <img src={dish.image} alt={dish.name} loading="lazy" width={1024} height={768} onError={() => setBroken(true)} className="dish-img h-full w-full object-cover" />
         )}
         {dish.featured && (
           <span className="absolute left-3 top-3 rounded-full bg-forest/90 px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-gold">Tavsiya</span>
@@ -121,8 +122,8 @@ export function MenuSection() {
 
         {filtered.length ? (
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {filtered.map((d) => (
-              <DishCard key={d.id} dish={d} highlight={highlight === d.id} />
+            {filtered.map((d, i) => (
+              <DishCard key={d.id} index={i} dish={d} highlight={highlight === d.id} />
             ))}
           </div>
         ) : (
@@ -151,7 +152,7 @@ export function MenuSection() {
                   <p className="font-serif text-2xl text-on-dark">{suggestion.name}</p>
                 </div>
                 <button onClick={() => focusDish(suggestion.id)} className="group inline-flex min-h-11 items-center gap-1 px-2 text-sm text-gold">
-                  Ko‘rish <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  Ko‘rish <ArrowRight className="h-4 w-4 transition-transform arrow-nudge" />
                 </button>
               </div>
             )}
