@@ -157,7 +157,7 @@ export function Contact() {
           </div>
         </Reveal>
         <Reveal>
-          <div className="relative flex aspect-[4/3] h-full min-h-72 flex-col items-center justify-center overflow-hidden rounded-2xl bg-forest p-8 text-center">
+          <div className="relative flex h-full min-h-80 flex-col items-center justify-center overflow-hidden rounded-2xl bg-forest p-8 text-center">
             <svg className="absolute inset-0 h-full w-full text-gold/10" aria-hidden="true">
               <defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="currentColor" /></pattern></defs>
               <rect width="100%" height="100%" fill="url(#grid)" />
