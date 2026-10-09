@@ -36,7 +36,7 @@ export const restaurant = {
     phones: ["+998 99 196 31 54", "+998 94 196 31 54"],
     hours: "Har kuni 08:00–00:00",
     telegram: "https://t.me/Rustambek_choyxonasi",
-    instagram: "https://www.instagram.com/rustambek_bazimgohi",
+    instagram: "https://www.instagram.com/rustambek_bazimgohi/",
     mapUrl: "https://maps.app.goo.gl/e4bgrrfbKLxomTaL7",
   },
 };
