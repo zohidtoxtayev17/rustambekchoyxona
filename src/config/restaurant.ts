@@ -12,10 +12,14 @@ import interior from "@/assets/interior.jpg";
 import osh from "@/assets/osh.jpg";
 import somsa from "@/assets/somsa.jpg";
 import shashlik from "@/assets/shashlik.jpg";
-import manti from "@/assets/manti.jpg";
-import lagmon from "@/assets/lagmon.jpg";
-import chuchvara from "@/assets/chuchvara.jpg";
-import achchiq from "@/assets/achchiq.jpg";
+import kuskavoyImg from "@/assets/kuskavoy.png.asset.json";
+import qiymaImg from "@/assets/qiyma.png.asset.json";
+import tabakaImg from "@/assets/tabaka.png.asset.json";
+import baliqImg from "@/assets/baliq.png.asset.json";
+import oshImg from "@/assets/osh-real.png.asset.json";
+import shorvaImg from "@/assets/shorva.png.asset.json";
+import somsaImg from "@/assets/jizzax-somsa.png.asset.json";
+import jizImg from "@/assets/jiz.png.asset.json";
 import choy from "@/assets/choy.jpg";
 
 export const restaurant = {
@@ -57,16 +61,16 @@ export type Dish = {
   featured?: boolean;
 };
 
-// Namuna (demo) taomlar — haqiqiy menyu emas.
+// Haqiqiy menyu
 export const dishes: Dish[] = [
-  { id: "osh", name: "Osh", description: "Sabzi, guruch va yumshoq go‘sht bilan qozonda damlangan milliy palov.", category: "asosiy", image: osh, price: "", featured: true },
-  { id: "somsa", name: "Somsa", description: "Tandirda yopilgan, qatlamli xamir ichida suvli go‘sht.", category: "somsa", image: somsa, price: "" },
-  { id: "shashlik", name: "Shashlik", description: "Cho‘g‘da pishirilgan ziravorli go‘sht, piyoz bilan.", category: "asosiy", image: shashlik, price: "" },
-  { id: "manti", name: "Manti", description: "Bug‘da pishirilgan, go‘sht va piyozli nozik chuchvara.", category: "asosiy", image: manti, price: "" },
-  { id: "lagmon", name: "Lagʻmon", description: "Qo‘lda cho‘zilgan xamir, go‘sht va sabzavotli quyuq sous.", category: "asosiy", image: lagmon, price: "" },
-  { id: "chuchvara", name: "Chuchvara", description: "Shaffof sho‘rvada mayda go‘shtli chuchvara, ukrop bilan.", category: "asosiy", image: chuchvara, price: "" },
-  { id: "achchiq-chuchuk", name: "Achchiq-chuchuk", description: "Pomidor, piyoz va rayhondan tayyorlangan yengil salat.", category: "salat", image: achchiq, price: "" },
-  { id: "kok-choy", name: "Koʻk choy", description: "Choynakda damlangan xushbo‘y ko‘k choy — suhbat hamrohi.", category: "ichimlik", image: choy, price: "" },
+  { id: "kuskavoy-shashlik", name: "Kuskavoy shashlik", description: "Saralangan go‘sht bo‘laklaridan tayyorlangan, olovda qizartirib pishirilgan shirali shashlik.", category: "asosiy", image: kuskavoyImg.url, price: "35 000 so‘m" },
+  { id: "qiyma-shashlik", name: "Qiyma shashlik", description: "Mayin qiymadan tayyorlangan, xushbo‘y ziravorlar bilan mazasi boyitilgan shashlik.", category: "asosiy", image: qiymaImg.url, price: "25 000 so‘m" },
+  { id: "tabaka", name: "Tabaka", description: "Usti tillarang bo‘lguncha qovurilgan, ichi yumshoq va shirali tovuq taomi.", category: "asosiy", image: tabakaImg.url, price: "60 000 so‘m" },
+  { id: "baliq", name: "Baliq", description: "Mazali va xushbo‘y, ishtaha ochar qilib tayyorlangan baliq taomi.", category: "asosiy", image: baliqImg.url, price: "75 000 so‘m / kg" },
+  { id: "osh", name: "Osh", description: "Guruch, go‘sht, sabzi va xushbo‘y ziravorlar uyg‘unligida tayyorlangan an’anaviy o‘zbek oshi.", category: "asosiy", image: oshImg.url, price: "50 000 so‘m / porsiya", featured: true },
+  { id: "shorva", name: "Sho‘rva", description: "Go‘sht va sabzavotlardan tayyorlangan, to‘yimli va xushbo‘y milliy sho‘rva.", category: "asosiy", image: shorvaImg.url, price: "30 000 so‘m" },
+  { id: "jizzax-somsa", name: "Katta Jizzax somsa", description: "Katta hajmli, ichi go‘shtli, usti qizargan va mazasi bilan ajralib turadigan Jizzax somsasi.", category: "somsa", image: somsaImg.url, price: "45 000 so‘m" },
+  { id: "jiz", name: "Jiz", description: "Go‘sht bo‘laklaridan tayyorlangan, shirali, to‘yimli va xushbo‘y milliy taom.", category: "asosiy", image: jizImg.url, price: "250 000 so‘m / kg" },
 ];
 
 export const gallery = [
