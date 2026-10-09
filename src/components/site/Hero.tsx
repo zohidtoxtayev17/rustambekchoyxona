@@ -20,7 +20,7 @@ export function Hero() {
           </p>
           <div className="mt-9 flex animate-fade-up flex-wrap items-center gap-5 [animation-delay:400ms]">
             <a href="#menyu" className="group inline-flex min-h-12 items-center gap-2 rounded-full bg-gold px-7 text-sm font-semibold text-forest-deep transition-colors hover:bg-gold-soft">
-              Menyuni ko‘rish <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              Menyuni ko‘rish <ArrowRight className="h-4 w-4 arrow-nudge" />
             </a>
             <a href="#biz-haqimizda" className="min-h-12 content-center text-sm text-on-dark underline-offset-8 hover:text-gold hover:underline">
               Biz haqimizda
