@@ -117,11 +117,6 @@ function ActionLink({ href, icon: Icon, label }: { href: string; icon: typeof Ph
 
 export function Contact() {
   const c = restaurant.contact;
-  const rows = [
-    { icon: MapPin, title: "Manzil", value: c.address || "Manzil kiritiladi" },
-    { icon: Clock, title: "Ish vaqti", value: c.hours || "Ish vaqti kiritiladi" },
-    { icon: Phone, title: "Telefon", value: c.phone || "Telefon raqami kiritiladi" },
-  ];
   return (
     <section id="aloqa" className="border-t bg-cream py-20 md:py-28">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 md:grid-cols-2 lg:px-8">
@@ -129,20 +124,35 @@ export function Contact() {
           <Ornament />
           <h2 className="mt-5 text-4xl text-ink md:text-5xl">Manzil va aloqa</h2>
           <dl className="mt-10 space-y-6">
-            {rows.map(({ icon: Icon, title, value }) => (
-              <div key={title} className="flex gap-4">
-                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-secondary text-forest"><Icon className="h-5 w-5" strokeWidth={1.4} /></span>
-                <div>
-                  <dt className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{title}</dt>
-                  <dd className="mt-1 text-lg text-ink">{value}</dd>
-                </div>
+            <div className="flex gap-4">
+              <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-secondary text-forest"><MapPin className="h-5 w-5" strokeWidth={1.4} /></span>
+              <div>
+                <dt className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Manzil</dt>
+                <dd className="mt-1 text-lg text-ink">{c.address}</dd>
               </div>
-            ))}
+            </div>
+            <div className="flex gap-4">
+              <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-secondary text-forest"><Phone className="h-5 w-5" strokeWidth={1.4} /></span>
+              <div>
+                <dt className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Telefon raqamlari</dt>
+                {c.phones.map((p) => (
+                  <dd key={p} className="mt-1"><a href={telHref(p)} className="text-lg text-ink underline-offset-4 hover:text-forest hover:underline">{p}</a></dd>
+                ))}
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-secondary text-forest"><Clock className="h-5 w-5" strokeWidth={1.4} /></span>
+              <div>
+                <dt className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Ish vaqti</dt>
+                <dd className="mt-1 text-lg text-ink">{c.hours}</dd>
+              </div>
+            </div>
           </dl>
           <div className="mt-10 flex flex-wrap gap-3">
-            <ActionLink href={c.phone ? telHref(c.phone) : ""} icon={Phone} label="Qo‘ng‘iroq qilish" />
-            <ActionLink href={c.telegram} icon={Send} label="Telegram orqali bog‘lanish" />
-            <ActionLink href={c.mapUrl} icon={MapPin} label="Xaritada ochish" />
+            {c.phones.map((p, i) => (
+              <ActionLink key={p} href={telHref(p)} icon={Phone} label={`Qo‘ng‘iroq qilish ${i + 1}`} />
+            ))}
+            <ActionLink href={c.telegram} icon={Send} label="Telegram orqali yozish" />
             <ActionLink href={c.instagram} icon={Instagram} label="Instagram" />
           </div>
         </Reveal>
@@ -153,8 +163,11 @@ export function Contact() {
               <rect width="100%" height="100%" fill="url(#grid)" />
             </svg>
             <MapPin className="relative h-10 w-10 text-gold" strokeWidth={1.2} />
-            <p className="relative mt-4 font-serif text-2xl text-on-dark">Xarita tez orada</p>
-            <p className="relative mt-2 max-w-xs text-sm text-on-dark-muted">Manzil kiritilgach, bu yerda joylashuvni ochish imkoniyati paydo bo‘ladi.</p>
+            <p className="relative mt-4 font-serif text-3xl text-on-dark">{restaurant.name}</p>
+            <p className="relative mt-2 max-w-xs text-on-dark-muted">{c.address}</p>
+            <a href={c.mapUrl} target="_blank" rel="noopener noreferrer" className="relative mt-6 inline-flex min-h-12 items-center gap-2 rounded-full bg-gold px-6 text-sm font-semibold text-forest-deep transition-colors hover:bg-gold-soft">
+              <MapPin className="h-4 w-4" /> Xaritada ko‘rish
+            </a>
           </div>
         </Reveal>
       </div>
@@ -172,11 +185,12 @@ export function Footer() {
           {nav.map((n) => <a key={n.href} href={n.href} className="text-sm text-on-dark-muted hover:text-gold">{n.label}</a>)}
         </nav>
         <div className="space-y-2 text-sm text-on-dark-muted">
-          {c.phone && <a href={telHref(c.phone)} className="block hover:text-gold">{c.phone}</a>}
-          {c.address && <p>{c.address}</p>}
-          <div className="flex gap-4">
-            {c.telegram && <a href={c.telegram} target="_blank" rel="noopener noreferrer" className="hover:text-gold">Telegram</a>}
-            {c.instagram && <a href={c.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-gold">Instagram</a>}
+          {c.phones.map((p) => <a key={p} href={telHref(p)} className="block hover:text-gold">{p}</a>)}
+          <a href={c.mapUrl} target="_blank" rel="noopener noreferrer" className="block hover:text-gold">{c.address}</a>
+          <p>{c.hours}</p>
+          <div className="flex gap-4 pt-1">
+            <a href={c.telegram} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-gold"><Send className="h-4 w-4" />Telegram</a>
+            <a href={c.instagram} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-gold"><Instagram className="h-4 w-4" />Instagram</a>
           </div>
         </div>
       </div>
@@ -189,20 +203,25 @@ export function Footer() {
 
 export function MobileBar() {
   const c = restaurant.contact;
-  const item = "flex min-h-14 flex-1 flex-col items-center justify-center gap-1 text-[0.7rem]";
+  const [open, setOpen] = useState(false);
+  const item = "flex min-h-14 flex-1 flex-col items-center justify-center gap-1 text-[0.7rem] text-gold";
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 flex border-t border-gold/20 bg-forest-deep/95 backdrop-blur lg:hidden" aria-label="Tezkor amallar">
-      <a href="#menyu" className={`${item} text-gold`}><UtensilsCrossed className="h-5 w-5" strokeWidth={1.4} />Menyu</a>
-      {c.phone ? (
-        <a href={telHref(c.phone)} className={`${item} text-gold`}><Phone className="h-5 w-5" strokeWidth={1.4} />Qo‘ng‘iroq</a>
-      ) : (
-        <span className={`${item} text-on-dark-muted opacity-50`} aria-disabled="true"><Phone className="h-5 w-5" strokeWidth={1.4} />Qo‘ng‘iroq</span>
+    <>
+      {open && <div className="fixed inset-0 z-30 lg:hidden" onClick={() => setOpen(false)} aria-hidden="true" />}
+      {open && (
+        <div className="fixed inset-x-3 bottom-[4.25rem] z-40 animate-fade-up rounded-2xl border border-gold/20 bg-forest-deep p-2 shadow-card lg:hidden" role="menu" aria-label="Raqamni tanlang">
+          {c.phones.map((p) => (
+            <a key={p} href={telHref(p)} role="menuitem" onClick={() => setOpen(false)} className="flex min-h-12 items-center gap-3 rounded-xl px-4 text-on-dark hover:bg-forest">
+              <Phone className="h-4 w-4 text-gold" /> {p}
+            </a>
+          ))}
+        </div>
       )}
-      {c.mapUrl ? (
-        <a href={c.mapUrl} target="_blank" rel="noopener noreferrer" className={`${item} text-gold`}><MapPin className="h-5 w-5" strokeWidth={1.4} />Manzil</a>
-      ) : (
-        <a href="#aloqa" className={`${item} text-on-dark-muted`}><MapPin className="h-5 w-5" strokeWidth={1.4} />Manzil</a>
-      )}
-    </nav>
+      <nav className="fixed inset-x-0 bottom-0 z-40 flex border-t border-gold/20 bg-forest-deep/95 backdrop-blur lg:hidden" aria-label="Tezkor amallar">
+        <a href="#menyu" className={item}><UtensilsCrossed className="h-5 w-5" strokeWidth={1.4} />Menyu</a>
+        <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className={item}><Phone className="h-5 w-5" strokeWidth={1.4} />Qo‘ng‘iroq</button>
+        <a href={c.mapUrl} target="_blank" rel="noopener noreferrer" className={item}><MapPin className="h-5 w-5" strokeWidth={1.4} />Manzil</a>
+      </nav>
+    </>
   );
 }

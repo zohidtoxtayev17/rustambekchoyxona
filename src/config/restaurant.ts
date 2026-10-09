@@ -31,12 +31,13 @@ export const restaurant = {
 
   // --- ALOQA (haqiqiy ma'lumotlarni kiriting) ---
   contact: {
-    address: "", // masalan: "Toshkent sh., ... ko‘chasi, 12-uy"
-    phone: "", // masalan: "+998901234567"
-    hours: "", // masalan: "Har kuni 09:00 – 23:00"
-    telegram: "", // masalan: "https://t.me/rustambek_choyxona"
-    instagram: "", // masalan: "https://instagram.com/rustambek_choyxona"
-    mapUrl: "", // Google Maps havolasi
+    address: "Rustambek bazimgohi, Alamli",
+    phone: "+998 99 196 31 54", // asosiy raqam
+    phones: ["+998 99 196 31 54", "+998 94 196 31 54"],
+    hours: "Har kuni 08:00–00:00",
+    telegram: "https://t.me/Rustambek_choyxonasi",
+    instagram: "https://www.instagram.com/rustambek_bazimgohi",
+    mapUrl: "https://maps.app.goo.gl/e4bgrrfbKLxomTaL7",
   },
 };
 
