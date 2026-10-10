@@ -113,7 +113,8 @@
 @keyframes fade-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @utility animate-fade-up { animation: fade-up var(--motion-duration) var(--motion-ease) backwards; }
 
-.hero-word-window { display: inline-block; overflow: clip; vertical-align: top; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+.hero-word-window { display: inline-block; overflow: clip; vertical-align: top; padding-bottom: 0.12em; margin-bottom: -0.12em; margin-inline-end: 0.2em; }
+.hero-word-window:last-child { margin-inline-end: 0; }
 .hero-word { display: inline-block; animation: text-reveal var(--motion-duration) var(--motion-ease) backwards; }
 @keyframes text-reveal { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: translateY(0); } }
 
