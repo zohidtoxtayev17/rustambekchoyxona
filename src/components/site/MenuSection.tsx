@@ -23,9 +23,9 @@ function DishCard({ dish, highlight, index }: { dish: Dish; highlight: boolean; 
   };
 
   return (
+    <Reveal delay={(index % 4) * 55} className="min-w-0">
     <article
       id={`taom-${dish.id}`}
-      style={{ animationDelay: `${Math.min(index, 7) * 70}ms` }}
       className={`dish-card group flex flex-col overflow-hidden rounded-2xl bg-card shadow-card ${
         highlight ? "ring-2 ring-gold ring-offset-4 ring-offset-cream" : ""
       }`}
@@ -54,6 +54,7 @@ function DishCard({ dish, highlight, index }: { dish: Dish; highlight: boolean; 
         {copied && <span className="sr-only" role="status">Havola nusxalandi</span>}
       </div>
     </article>
+    </Reveal>
   );
 }
 
@@ -74,13 +75,16 @@ export function MenuSection() {
     setCat("all");
     setQ("");
     setHighlight(id);
-    requestAnimationFrame(() => document.getElementById(`taom-${id}`)?.scrollIntoView({ behavior: "smooth", block: "center" }));
+    requestAnimationFrame(() => document.getElementById(`taom-${id}`)?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "center" }));
     setTimeout(() => setHighlight(null), 2600);
   };
 
   useEffect(() => {
     const m = window.location.hash.match(/^#taom-(.+)$/);
-    if (m && dishes.some((d) => d.id === m[1])) setTimeout(() => focusDish(m[1]!), 300);
+    const id = m?.[1];
+    if (!id || !dishes.some((d) => d.id === id)) return;
+    const timer = setTimeout(() => focusDish(id), 300);
+    return () => clearTimeout(timer);
   }, []);
 
   const suggest = () => {

@@ -25,25 +25,38 @@ export function Brand({ compact = false }: { compact?: boolean }) {
   );
 }
 
-export function Reveal({ children, className = "", as: Tag = "div" }: { children: ReactNode; className?: string; as?: "div" | "section" }) {
-  const ref = useRef<HTMLDivElement>(null);
+export function Reveal({ children, className = "", as: Tag = "div", delay = 0 }: { children: ReactNode; className?: string; as?: "div" | "section"; delay?: number }) {
+  const ref = useRef<HTMLElement | null>(null);
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || !("IntersectionObserver" in window) || !el.animate) return;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reducedMotion.matches) return;
+    let animation: Animation | undefined;
+    const stop = () => animation?.cancel();
     const io = new IntersectionObserver(
       ([e]) => {
         if (e?.isIntersecting) {
-          el.classList.add("is-visible");
           io.disconnect();
+          if (reducedMotion.matches) return;
+          animation = el.animate(
+            [{ opacity: 0, transform: "translateY(18px)" }, { opacity: 1, transform: "translateY(0)" }],
+            { duration: 600, delay: Math.min(Math.max(delay, 0), 180), easing: "cubic-bezier(0.22, 1, 0.36, 1)", fill: "backwards" },
+          );
         }
       },
-      { threshold: 0.12 },
+      { threshold: 0.01 },
     );
     io.observe(el);
-    return () => io.disconnect();
-  }, []);
+    reducedMotion.addEventListener("change", stop);
+    return () => {
+      io.disconnect();
+      stop();
+      reducedMotion.removeEventListener("change", stop);
+    };
+  }, [delay]);
   return (
-    <Tag ref={ref as never} className={`reveal ${className}`}>
+    <Tag ref={(node) => { ref.current = node; }} className={`reveal ${className}`}>
       {children}
     </Tag>
   );
