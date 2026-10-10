@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import { Fragment } from "react";
 import { restaurant } from "@/config/restaurant";
 import { Emblem } from "./common";
 
@@ -12,8 +13,15 @@ export function Hero() {
         <div className="max-w-xl">
           <Emblem className="h-12 w-12 animate-fade-up text-gold" />
           <p className="eyebrow mt-6 animate-fade-up [animation-delay:100ms]">Rustambek Choyxona</p>
-          <h1 className="mt-4 animate-fade-up text-5xl leading-[1.05] text-on-dark [animation-delay:180ms] sm:text-6xl lg:text-7xl">
-            {restaurant.tagline}
+          <h1 aria-label={restaurant.tagline} className="hero-heading mt-4 text-5xl leading-[1.05] text-on-dark sm:text-6xl lg:text-7xl">
+            {restaurant.tagline.split(" ").map((word, index) => (
+              <Fragment key={`${word}-${index}`}>
+                <span aria-hidden="true" className="hero-word-window">
+                  <span className="hero-word" style={{ animationDelay: `${100 + index * 35}ms` }}>{word}</span>
+                </span>
+                {" "}
+              </Fragment>
+            ))}
           </h1>
           <p className="mt-5 max-w-md animate-fade-up text-base leading-relaxed text-on-dark-muted [animation-delay:260ms] sm:text-lg">
             {restaurant.subtitle}
