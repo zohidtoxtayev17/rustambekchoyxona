@@ -25,6 +25,11 @@ import achchiqChuchukImg from "@/assets/achchiq-chuchuk.jpg.asset.json";
 import suzmaImg from "@/assets/suzma.jpg.asset.json";
 import karamSalatImg from "@/assets/karam-salat.jpg.asset.json";
 import sezarImg from "@/assets/sezar.jpg.asset.json";
+import cocaColaImg from "@/assets/coca-cola.png.asset.json";
+import pepsiImg from "@/assets/pepsi.png.asset.json";
+import fantaImg from "@/assets/fanta.png.asset.json";
+import denaImg from "@/assets/dena.png.asset.json";
+import choyRealImg from "@/assets/choy-real.png.asset.json";
 
 export const restaurant = {
   name: "Rustambek Choyxona",
@@ -64,6 +69,8 @@ export type Dish = {
   image: string;
   price: string; // "" bo'lsa "Narx kiritiladi" ko'rinadi
   featured?: boolean;
+  size?: string;
+  varieties?: string[];
 };
 
 // Haqiqiy menyu
@@ -81,6 +88,11 @@ export const dishes: Dish[] = [
   { id: "suzma", name: "Suzma", description: "Mayin va mazali suzma asosidagi yengil salat.", category: "salat", image: suzmaImg.url, price: "15 000 so‘m" },
   { id: "karam-salat", name: "Karam salat", description: "Yangi karamdan tayyorlangan yengil va qarsildoq salat.", category: "salat", image: karamSalatImg.url, price: "12 000 so‘m" },
   { id: "sezar", name: "Sezar", description: "Mashhur Sezar uslubidagi salat.", category: "salat", image: sezarImg.url, price: "35 000 so‘m" },
+  { id: "coca-cola", name: "Coca-Cola", size: "1.5 L", description: "Salqin gazlangan Coca-Cola ichimligi.", category: "ichimlik", image: cocaColaImg.url, price: "15 000 so‘m" },
+  { id: "pepsi", name: "Pepsi", size: "1.5 L", description: "Gazlangan va tetiklashtiruvchi Pepsi ichimligi.", category: "ichimlik", image: pepsiImg.url, price: "15 000 so‘m" },
+  { id: "fanta", name: "Fanta", size: "1.5 L", description: "Apelsin ta’mli gazlangan salqin ichimlik.", category: "ichimlik", image: fantaImg.url, price: "15 000 so‘m" },
+  { id: "dena", name: "Dena", size: "1 L", description: "Dena ichimligi.", category: "ichimlik", image: denaImg.url, price: "14 000 so‘m" },
+  { id: "choy", name: "Choy", description: "Oddiy, limonli va boshqa turdagi choylar.", category: "ichimlik", image: choyRealImg.url, price: "5 000 so‘m", varieties: ["Oddiy choy", "Limonli choy", "Boshqa turlari"] },
 ];
 
 export const gallery = [

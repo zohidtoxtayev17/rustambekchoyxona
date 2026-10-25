@@ -34,7 +34,7 @@ function DishCard({ dish, highlight, index }: { dish: Dish; highlight: boolean; 
         {broken ? (
           <div className="flex h-full items-center justify-center font-serif text-2xl text-muted-foreground">{dish.name}</div>
         ) : (
-          <img src={dish.image} alt={dish.name} loading="lazy" width={1024} height={768} onError={() => setBroken(true)} className="dish-img h-full w-full object-cover" />
+          <img src={dish.image} alt={dish.name} loading="lazy" width={1024} height={768} onError={() => setBroken(true)} className={`dish-img h-full w-full ${dish.category === "ichimlik" ? "object-contain" : "object-cover"}`} />
         )}
         {dish.featured && (
           <span className="absolute left-3 top-3 rounded-full bg-forest/90 px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-gold">Tavsiya</span>
@@ -42,7 +42,9 @@ function DishCard({ dish, highlight, index }: { dish: Dish; highlight: boolean; 
       </div>
       <div className="flex flex-1 flex-col p-5">
         <h3 className="text-2xl text-ink">{dish.name}</h3>
+        {dish.size && <p className="mt-1 text-sm font-medium text-forest">{dish.size}</p>}
         <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{dish.description}</p>
+        {dish.varieties && <ul className="mt-3 space-y-1 text-sm text-muted-foreground">{dish.varieties.map((variety) => <li key={variety}>{variety}</li>)}</ul>}
         <div className="mt-5 flex items-center justify-between border-t pt-4">
           <span className={dish.price ? "font-semibold text-forest" : "text-sm italic text-muted-foreground"}>
             {dish.price || "Narx kiritiladi"}
