@@ -76,13 +76,11 @@ export const dishes: Dish[] = [
   { id: "shorva", name: "Sho‘rva", description: "Go‘sht va sabzavotlardan tayyorlangan, to‘yimli va xushbo‘y milliy sho‘rva.", category: "asosiy", image: shorvaImg.url, price: "30 000 so‘m" },
   { id: "jizzax-somsa", name: "Katta Jizzax somsa", description: "Katta hajmli, ichi go‘shtli, usti qizargan va mazasi bilan ajralib turadigan Jizzax somsasi.", category: "somsa", image: somsaImg.url, price: "45 000 so‘m" },
   { id: "jiz", name: "Jiz", description: "Go‘sht bo‘laklaridan tayyorlangan, shirali, to‘yimli va xushbo‘y milliy taom.", category: "asosiy", image: jizImg.url, price: "250 000 so‘m / kg" },
-  // Salatlar — narxlar taklif etilgan, tasdiqlanmaguncha "Narx kiritiladi" ko'rinadi.
-  // Tasdiqlangach price maydoniga quyidagi taklif narxni yozing:
-  //   Achchiq-chuchuk 15 000 so‘m · Suzma 15 000 so‘m · Karam salat 12 000 so‘m · Sezar 35 000 so‘m
-  { id: "achchiq-chuchuk", name: "Achchiq-chuchuk", description: "Pomidor va piyozdan tayyorlangan an’anaviy milliy salat.", category: "salat", image: achchiqChuchukImg.url, price: "" },
-  { id: "suzma", name: "Suzma", description: "Mayin va mazali suzma asosidagi yengil salat.", category: "salat", image: suzmaImg.url, price: "" },
-  { id: "karam-salat", name: "Karam salat", description: "Yangi karamdan tayyorlangan yengil va qarsildoq salat.", category: "salat", image: karamSalatImg.url, price: "" },
-  { id: "sezar", name: "Sezar", description: "Mashhur Sezar uslubidagi salat.", category: "salat", image: sezarImg.url, price: "" },
+  // Salatlar — narxlar tasdiqlangan.
+  { id: "achchiq-chuchuk", name: "Achchiq-chuchuk", description: "Pomidor va piyozdan tayyorlangan an'anaviy milliy salat.", category: "salat", image: achchiqChuchukImg.url, price: "15 000 so‘m" },
+  { id: "suzma", name: "Suzma", description: "Mayin va mazali suzma asosidagi yengil salat.", category: "salat", image: suzmaImg.url, price: "15 000 so‘m" },
+  { id: "karam-salat", name: "Karam salat", description: "Yangi karamdan tayyorlangan yengil va qarsildoq salat.", category: "salat", image: karamSalatImg.url, price: "12 000 so‘m" },
+  { id: "sezar", name: "Sezar", description: "Mashhur Sezar uslubidagi salat.", category: "salat", image: sezarImg.url, price: "35 000 so‘m" },
 ];
 
 export const gallery = [
