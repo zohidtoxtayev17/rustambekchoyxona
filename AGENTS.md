@@ -11,3 +11,4 @@
 
 - Keep scroll entrance motion in the shared Reveal component using one-shot IntersectionObserver and progressive Web Animations; content remains visible when JavaScript, observers or animation APIs are unavailable.
 - Separate menu entrance wrappers from card hover transforms so entrance and pointer motion never compete.
+- Keep optional product sizes and varieties in the shared menu data and render them through the existing card; drink images use contain fitting so product packaging stays fully visible without changing food cards.
