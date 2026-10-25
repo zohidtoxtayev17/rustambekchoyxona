@@ -50,7 +50,7 @@ export const restaurant = {
   },
 };
 
-export type CategoryId = "all" | "asosiy" | "somsa" | "salat" | "ichimlik" | "shirinlik";
+export type CategoryId = "all" | "asosiy" | "somsa" | "salat" | "ichimlik";
 
 export const categories: { id: CategoryId; label: string }[] = [
   { id: "all", label: "Barchasi" },
@@ -58,7 +58,6 @@ export const categories: { id: CategoryId; label: string }[] = [
   { id: "somsa", label: "Somsa va non" },
   { id: "salat", label: "Salatlar" },
   { id: "ichimlik", label: "Ichimliklar" },
-  { id: "shirinlik", label: "Shirinliklar" },
 ];
 
 export type Dish = {
