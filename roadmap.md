@@ -4,4 +4,4 @@
 
 # Drink menu update
 - [x] Add the five supplied drinks and photographs, preserving existing menu and contact data.
-- [ ] Verify drink prices, sizes, varieties, filters, search and photographs on desktop/mobile.
+- [x] Verify drink prices, sizes, varieties, filters, search and photographs on desktop/mobile.
