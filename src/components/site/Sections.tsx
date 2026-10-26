@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Clock, Coffee, HeartHandshake, Instagram, MapPin, Phone, Send, UtensilsCrossed, X } from "lucide-react";
 import { gallery, restaurant } from "@/config/restaurant";
 import { Brand, Ornament, Reveal, nav, telHref } from "./common";
+import { OpeningStatus } from "./OpeningStatus";
 
 export function About() {
   const items = [
@@ -145,6 +146,7 @@ export function Contact() {
               <div>
                 <dt className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Ish vaqti</dt>
                 <dd className="mt-1 text-lg text-ink">{c.hours}</dd>
+                 <OpeningStatus />
               </div>
             </div>
           </dl>
