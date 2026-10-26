@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight, Search, Share2, Sparkles, Check } from "lucide-react";
+import { ArrowRight, Search, Share2, Sparkles, Check, Heart } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useFavorites } from "@/hooks/use-favorites";
 import { categories, dishes, type CategoryId, type Dish } from "@/config/restaurant";
 import { Ornament, Reveal } from "./common";
 
-function DishCard({ dish, highlight, index }: { dish: Dish; highlight: boolean; index: number }) {
+function DishCard({ dish, highlight, index, favorite, onFavorite }: { dish: Dish; highlight: boolean; index: number; favorite: boolean; onFavorite: () => void }) {
   const [copied, setCopied] = useState(false);
   const [broken, setBroken] = useState(false);
 
@@ -49,9 +51,14 @@ function DishCard({ dish, highlight, index }: { dish: Dish; highlight: boolean; 
           <span className={dish.price ? "font-semibold text-forest" : "text-sm italic text-muted-foreground"}>
             {dish.price || "Narx kiritiladi"}
           </span>
+           <div className="flex shrink-0 items-center">
+           <Button type="button" variant="ghost" size="icon" onClick={onFavorite} aria-pressed={favorite} aria-label={`${dish.name}: ${favorite ? "sevimlilardan olib tashlash" : "sevimlilarga qo‘shish"}`} title={favorite ? "Sevimlilardan olib tashlash" : "Sevimlilarga qo‘shish"} className="h-11 w-11 rounded-full text-forest hover:bg-secondary">
+             <Heart className={favorite ? "fill-current" : ""} />
+           </Button>
           <button type="button" onClick={share} className="inline-flex h-11 w-11 items-center justify-center rounded-full text-forest transition-colors hover:bg-secondary" aria-label={`${dish.name} havolasini ulashish`}>
             {copied ? <Check className="h-4 w-4" /> : <Share2 className="h-4 w-4" />}
           </button>
+           </div>
         </div>
         {copied && <span className="sr-only" role="status">Havola nusxalandi</span>}
       </div>
@@ -61,7 +68,8 @@ function DishCard({ dish, highlight, index }: { dish: Dish; highlight: boolean; 
 }
 
 export function MenuSection() {
-  const [cat, setCat] = useState<CategoryId>("all");
+  const [cat, setCat] = useState<CategoryId | "favorites">("all");
+  const { favorites, toggle } = useFavorites();
   const [q, setQ] = useState("");
   const [highlight, setHighlight] = useState<string | null>(null);
   const [suggestion, setSuggestion] = useState<Dish | null>(null);
@@ -69,9 +77,9 @@ export function MenuSection() {
   const filtered = useMemo(() => {
     const s = q.trim().toLocaleLowerCase("uz");
     return dishes.filter(
-      (d) => (cat === "all" || d.category === cat) && (!s || d.name.toLocaleLowerCase("uz").includes(s) || d.description.toLocaleLowerCase("uz").includes(s)),
+      (d) => (cat === "all" || (cat === "favorites" ? favorites.includes(d.id) : d.category === cat)) && (!s || d.name.toLocaleLowerCase("uz").includes(s) || d.description.toLocaleLowerCase("uz").includes(s)),
     );
-  }, [cat, q]);
+  }, [cat, q, favorites]);
 
   const focusDish = (id: string) => {
     setCat("all");
@@ -118,6 +126,9 @@ export function MenuSection() {
                 {c.label}
               </button>
             ))}
+             <Button type="button" variant="outline" role="tab" aria-selected={cat === "favorites"} onClick={() => setCat("favorites")} className={`min-h-11 shrink-0 rounded-full border px-5 text-sm shadow-none ${cat === "favorites" ? "border-forest bg-forest text-cream hover:bg-forest hover:text-cream" : "border-input bg-transparent text-ink hover:border-forest"}`}>
+               <Heart /> Sevimlilar
+             </Button>
           </div>
           <label className="relative block md:w-72">
             <span className="sr-only">Taom qidirish</span>
@@ -129,7 +140,7 @@ export function MenuSection() {
         {filtered.length ? (
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filtered.map((d, i) => (
-              <DishCard key={d.id} index={i} dish={d} highlight={highlight === d.id} />
+              <DishCard key={d.id} index={i} dish={d} highlight={highlight === d.id} favorite={favorites.includes(d.id)} onFavorite={() => toggle(d.id)} />
             ))}
           </div>
         ) : (
