@@ -77,6 +77,7 @@ export const nav = [
   { href: "#menyu", label: "Menyu" },
   { href: "#biz-haqimizda", label: "Biz haqimizda" },
   { href: "#galereya", label: "Galereya" },
+  { href: "#joy-band-qilish", label: "Joy band qilish" },
   { href: "#aloqa", label: "Aloqa" },
 ];
 

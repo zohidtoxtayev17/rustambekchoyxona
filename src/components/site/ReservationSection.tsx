@@ -88,7 +88,7 @@ export function ReservationSection() {
   const today = current ? new Date(`${current.date}T12:00:00`) : undefined;
 
   return (
-    <section id="bandlov" className="bg-forest py-16 md:py-20">
+    <section id="joy-band-qilish" className="bg-forest py-16 md:py-20">
       <Reveal className="mx-auto max-w-3xl px-5 text-center">
         <CalendarDays className="mx-auto h-7 w-7 text-gold" strokeWidth={1.4} />
         <h2 className="mt-4 text-3xl text-cream md:text-4xl">Tashrifingizni oldindan rejalashtiring</h2>
