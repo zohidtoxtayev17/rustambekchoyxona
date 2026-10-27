@@ -141,3 +141,9 @@
 }
 @keyframes lightbox-in { from { opacity: 0; transform: scale(0.985); } to { opacity: 1; transform: none; } }
 .lightbox-img { animation: lightbox-in 400ms var(--motion-ease) backwards; }
+
+.booking-step { animation: fade-up 240ms var(--motion-ease) backwards; }
+.booking-dialog { padding-bottom: env(safe-area-inset-bottom); }
+@media (max-width: 639px) {
+  .booking-dialog { width: calc(100% - 1rem); max-height: calc(100dvh - 1rem); }
+}

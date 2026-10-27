@@ -11,3 +11,9 @@
 - [x] Add opening status for daily 08:00–00:00 in Asia/Tashkent.
 - [x] Add locally saved favorites and Sevimlilar filter.
 - [x] Test opening boundaries and favorites on desktop/mobile.
+
+# Telegram reservation request
+- [x] Add compact invitation between Gallery and Contact, and accessible two-step dialog.
+- [x] Validate Tashkent dates, 30-minute arrival slots, customer details and exact guest counts.
+- [x] Prepare manual Telegram handoff and copy fallback without persisting customer details.
+- [x] Test desktop/mobile form, date boundaries, editing, focus, copy and existing menu.
