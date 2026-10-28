@@ -1,3 +1,4 @@
+import { useLanguage } from "@/i18n/LanguageProvider";
 import { useEffect, useRef, type ReactNode } from "react";
 import { restaurant } from "@/config/restaurant";
 
@@ -14,8 +15,9 @@ export function Emblem({ className = "h-10 w-10" }: { className?: string }) {
 }
 
 export function Brand({ compact = false }: { compact?: boolean }) {
+  const { t, language } = useLanguage();
   return (
-    <a href="#bosh" className="flex items-center gap-3 text-gold" aria-label={`${restaurant.name} — bosh sahifa`}>
+    <a href="#bosh" className="flex items-center gap-3 text-gold" aria-label={`${restaurant.name} — ${t("Bosh sahifa")}`}>
       <Emblem className={compact ? "h-8 w-8" : "h-10 w-10"} />
       <span className="flex flex-col leading-none">
         <span className="font-serif text-xl tracking-wide text-on-dark sm:text-2xl">Rustambek</span>

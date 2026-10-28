@@ -14,3 +14,4 @@
 - Keep optional product sizes and varieties in the shared menu data and render them through the existing card; drink images use contain fitting so product packaging stays fully visible without changing food cards.
 - Keep scheduled opening-hours and favorites parsing/toggling in browser-safe utilities with boundary tests; hydrate clock and local favorites after mount to prevent SSR mismatches.
 - Treat reservations as a client-only message composer with temporary React Hook Form state; centralize Telegram destination and validate times with fresh Tashkent clock values at both review and handoff, never simulate site submission.
+- Keep localization in a shared language provider and browser-safe dictionaries, with menu translations keyed by stable product IDs; hydrate preferences after mount and never remount forms on language changes, so SSR and visitor state remain stable.

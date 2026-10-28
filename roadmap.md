@@ -1,4 +1,9 @@
 # Animation refinement
+# Uzbek and English support
+- [ ] Localize all sections, menu, accessibility labels and metadata with persistent UZ/EN selectors.
+- [ ] Localize reservation validation, calendar and manual Telegram messages without resetting values.
+- [ ] Verify both languages, preserved state, search, prices, links and desktop/mobile layouts.
+
 - [x] Refine hero, section and menu entrance motion without changing content or layout.
 - [x] Verify navigation, filters, search, suggestions, gallery, links and reduced motion on desktop/mobile.
 
