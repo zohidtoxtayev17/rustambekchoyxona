@@ -1,3 +1,4 @@
+import { useLanguage } from "@/i18n/LanguageProvider";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Clock, Coffee, HeartHandshake, Instagram, MapPin, Phone, Send, UtensilsCrossed, X } from "lucide-react";
 import { gallery, restaurant } from "@/config/restaurant";
@@ -5,6 +6,7 @@ import { Brand, Ornament, Reveal, nav, telHref } from "./common";
 import { OpeningStatus } from "./OpeningStatus";
 
 export function About() {
+  const { t, language } = useLanguage();
   const items = [
     { icon: UtensilsCrossed, label: "Milliy taomlar" },
     { icon: HeartHandshake, label: "Samimiy muhit" },
@@ -18,7 +20,7 @@ export function About() {
         </Reveal>
         <Reveal>
           <Ornament />
-          <h2 className="mt-5 text-4xl text-on-dark md:text-5xl">Biz haqimizda</h2>
+          <h2 className="mt-5 text-4xl text-on-dark md:text-5xl">{t('Biz haqimizda')}</h2>
           <p className="mt-6 font-serif text-2xl leading-snug text-gold-soft">
             Rustambek Choyxona — milliy ta’mlar va samimiy suhbatlar uyg‘unlashadigan maskan.
           </p>
@@ -29,7 +31,7 @@ export function About() {
             {items.map(({ icon: Icon, label }) => (
               <li key={label} className="border-t border-gold/25 pt-5">
                 <Icon className="h-6 w-6 text-gold" strokeWidth={1.2} />
-                <p className="mt-3 text-sm text-on-dark">{label}</p>
+                <p className="mt-3 text-sm text-on-dark">{t(label)}</p>
               </li>
             ))}
           </ul>
@@ -40,8 +42,8 @@ export function About() {
 }
 
 export function Gallery() {
-  const [idx, setIdx] = useState<number | null>(null);
-  const touch = useRef<number | null>(null);
+  const { t, language } = useLanguage();
+  const [idx, setIdx] = useState<number | null>{t('(null);\n  const touch = useRef')}<number | null>(null);
   const close = () => setIdx(null);
   const step = useCallback((d: number) => setIdx((i) => (i === null ? i : (i + d + gallery.length) % gallery.length)), []);
 
@@ -67,34 +69,34 @@ export function Gallery() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <Reveal className="text-center">
           <Ornament className="justify-center" />
-          <h2 className="mt-5 text-4xl text-ink md:text-5xl">Galereya</h2>
+          <h2 className="mt-5 text-4xl text-ink md:text-5xl">{t('Galereya')}</h2>
         </Reveal>
         <div className="-mx-5 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 md:mx-0 md:grid md:auto-rows-[220px] md:grid-cols-4 md:overflow-visible md:px-0">
           {gallery.map((g, i) => (
-            <button key={i} onClick={() => setIdx(i)} className={`group relative w-[80%] shrink-0 snap-center overflow-hidden rounded-2xl md:w-auto ${spans[i] ?? ""}`} aria-label={`Rasmni kattalashtirish: ${g.alt}`}>
-              <img src={g.src} alt={g.alt} loading="lazy" className="aspect-[4/3] h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] md:aspect-auto" />
+            <button key={i} onClick={() => setIdx(i)} className={`group relative w-[80%] shrink-0 snap-center overflow-hidden rounded-2xl md:w-auto ${spans[i] ?? ""}`} aria-label={`${t("Rasmni kattalashtirish")}: ${t(g.alt)}`}>
+              <img src={g.src} alt={t(g.alt)} loading="lazy" className="aspect-[4/3] h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] md:aspect-auto" />
             </button>
           ))}
         </div>
       </div>
 
-      {idx !== null && (
-        <div role="dialog" aria-modal="true" aria-label="Rasm ko‘rish" className="fixed inset-0 z-[60] flex animate-in fade-in items-center justify-center bg-forest-deep/95 p-4" onClick={close}
+      {idx !== null && gallery[idx] && (
+        <div role="dialog" aria-modal="true" aria-label={t('Rasm ko‘rish')} className="fixed inset-0 z-[60] flex animate-in fade-in items-center justify-center bg-forest-deep/95 p-4" onClick={close}
           onTouchStart={(e) => (touch.current = e.touches[0]?.clientX ?? null)}
           onTouchEnd={(e) => {
             if (touch.current === null) return;
             const dx = (e.changedTouches[0]?.clientX ?? touch.current) - touch.current;
-            if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+            if (Math.abs(dx) >{t('50) step(dx')}< 0 ? 1 : -1);
             touch.current = null;
           }}
         >
           <figure className="max-h-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
-            <img key={idx} src={gallery[idx]!.src} alt={gallery[idx]!.alt} className="lightbox-img max-h-[80vh] w-auto rounded-xl object-contain" />
-            <figcaption className="mt-3 text-center text-sm text-on-dark-muted">{gallery[idx]!.alt}</figcaption>
+            <img key={idx} src={gallery[idx]?.src} alt={t(gallery[idx]?.alt ?? "")} className="lightbox-img max-h-[80vh] w-auto rounded-xl object-contain" />
+            <figcaption className="mt-3 text-center text-sm text-on-dark-muted">{t(gallery[idx]?.alt ?? "")}</figcaption>
           </figure>
-          <button autoFocus onClick={close} className="absolute right-4 top-4 inline-flex h-12 w-12 items-center justify-center rounded-full text-on-dark hover:text-gold" aria-label="Yopish"><X className="h-6 w-6" /></button>
-          <button onClick={(e) => { e.stopPropagation(); step(-1); }} className="absolute left-2 top-1/2 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full text-on-dark hover:text-gold" aria-label="Oldingi rasm"><ChevronLeft className="h-7 w-7" /></button>
-          <button onClick={(e) => { e.stopPropagation(); step(1); }} className="absolute right-2 top-1/2 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full text-on-dark hover:text-gold" aria-label="Keyingi rasm"><ChevronRight className="h-7 w-7" /></button>
+          <button autoFocus onClick={close} className="absolute right-4 top-4 inline-flex h-12 w-12 items-center justify-center rounded-full text-on-dark hover:text-gold" aria-label={t('Yopish')}><X className="h-6 w-6" /></button>
+          <button onClick={(e) => { e.stopPropagation(); step(-1); }} className="absolute left-2 top-1/2 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full text-on-dark hover:text-gold" aria-label={t('Oldingi rasm')}><ChevronLeft className="h-7 w-7" /></button>
+          <button onClick={(e) => { e.stopPropagation(); step(1); }} className="absolute right-2 top-1/2 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full text-on-dark hover:text-gold" aria-label={t('Keyingi rasm')}><ChevronRight className="h-7 w-7" /></button>
         </div>
       )}
     </section>
@@ -102,9 +104,10 @@ export function Gallery() {
 }
 
 function ActionLink({ href, icon: Icon, label }: { href: string; icon: typeof Phone; label: string }) {
+  const { t, language } = useLanguage();
   if (!href)
     return (
-      <span className="inline-flex min-h-12 cursor-not-allowed items-center gap-2 rounded-full border border-dashed border-input px-5 text-sm text-muted-foreground" title="Ma’lumot hali kiritilmagan" aria-disabled="true">
+      <span className="inline-flex min-h-12 cursor-not-allowed items-center gap-2 rounded-full border border-dashed border-input px-5 text-sm text-muted-foreground" title={t('Ma’lumot hali kiritilmagan')} aria-disabled="true">
         <Icon className="h-4 w-4" /> {label}
       </span>
     );
@@ -117,25 +120,26 @@ function ActionLink({ href, icon: Icon, label }: { href: string; icon: typeof Ph
 }
 
 export function Contact() {
+  const { t, language } = useLanguage();
   const c = restaurant.contact;
   return (
     <section id="aloqa" className="border-t bg-cream py-20 md:py-28">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 md:grid-cols-2 lg:px-8">
         <Reveal>
           <Ornament />
-          <h2 className="mt-5 text-4xl text-ink md:text-5xl">Manzil va aloqa</h2>
+          <h2 className="mt-5 text-4xl text-ink md:text-5xl">{t('Manzil va aloqa')}</h2>
           <dl className="mt-10 space-y-6">
             <div className="flex gap-4">
               <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-secondary text-forest"><MapPin className="h-5 w-5" strokeWidth={1.4} /></span>
               <div>
-                <dt className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Manzil</dt>
+                <dt className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{t('Manzil')}</dt>
                 <dd className="mt-1 text-lg text-ink">{c.address}</dd>
               </div>
             </div>
             <div className="flex gap-4">
               <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-secondary text-forest"><Phone className="h-5 w-5" strokeWidth={1.4} /></span>
               <div>
-                <dt className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Telefon raqamlari</dt>
+                <dt className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{t('Telefon raqamlari')}</dt>
                 {c.phones.map((p) => (
                   <dd key={p} className="mt-1"><a href={telHref(p)} className="text-lg text-ink underline-offset-4 hover:text-forest hover:underline">{p}</a></dd>
                 ))}
@@ -144,17 +148,17 @@ export function Contact() {
             <div className="flex gap-4">
               <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-secondary text-forest"><Clock className="h-5 w-5" strokeWidth={1.4} /></span>
               <div>
-                <dt className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Ish vaqti</dt>
-                <dd className="mt-1 text-lg text-ink">{c.hours}</dd>
+                <dt className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{t('Ish vaqti')}</dt>
+                <dd className="mt-1 text-lg text-ink">{t(c.hours)}</dd>
                  <OpeningStatus />
               </div>
             </div>
           </dl>
           <div className="mt-10 flex flex-wrap gap-3">
             {c.phones.map((p, i) => (
-              <ActionLink key={p} href={telHref(p)} icon={Phone} label={`Qo‘ng‘iroq qilish ${i + 1}`} />
+              <ActionLink key={p} href={telHref(p)} icon={Phone} label={`${t("Qo‘ng‘iroq qilish")} ${i + 1}`} />
             ))}
-            <ActionLink href={c.telegram} icon={Send} label="Telegram orqali yozish" />
+            <ActionLink href={c.telegram} icon={Send} label={t("Telegram orqali yozish")} />
             <ActionLink href={c.instagram} icon={Instagram} label="Instagram" />
           </div>
         </Reveal>
@@ -168,8 +172,7 @@ export function Contact() {
             <p className="relative mt-4 font-serif text-3xl text-on-dark">{restaurant.name}</p>
             <p className="relative mt-2 max-w-xs text-on-dark-muted">{c.address}</p>
             <a href={c.mapUrl} target="_blank" rel="noopener noreferrer" className="relative mt-6 inline-flex min-h-12 items-center gap-2 rounded-full bg-gold px-6 text-sm font-semibold text-forest-deep transition-colors duration-300 hover:bg-gold-soft active:bg-gold-soft">
-              <MapPin className="h-4 w-4" /> Xaritada ko‘rish
-            </a>
+              <MapPin className="h-4 w-4" />{t('Xaritada ko‘rish')}</a>
           </div>
         </Reveal>
       </div>
@@ -178,18 +181,19 @@ export function Contact() {
 }
 
 export function Footer() {
+  const { t, language } = useLanguage();
   const c = restaurant.contact;
   return (
     <footer className="bg-forest-deep pb-28 pt-14 lg:pb-14">
       <div className="mx-auto flex max-w-7xl flex-col gap-10 px-5 md:flex-row md:items-start md:justify-between lg:px-8">
         <Brand />
-        <nav className="flex flex-wrap gap-x-6 gap-y-3" aria-label="Pastki navigatsiya">
-          {nav.map((n) => <a key={n.href} href={n.href} className="text-sm text-on-dark-muted hover:text-gold">{n.label}</a>)}
+        <nav className="flex flex-wrap gap-x-6 gap-y-3" aria-label={t('Pastki navigatsiya')}>
+          {nav.map((n) => <a key={n.href} href={n.href} className="text-sm text-on-dark-muted hover:text-gold">{t(n.label)}</a>)}
         </nav>
         <div className="space-y-2 text-sm text-on-dark-muted">
           {c.phones.map((p) => <a key={p} href={telHref(p)} className="block hover:text-gold">{p}</a>)}
           <a href={c.mapUrl} target="_blank" rel="noopener noreferrer" className="block hover:text-gold">{c.address}</a>
-          <p>{c.hours}</p>
+          <p>{t(c.hours)}</p>
           <div className="flex gap-4 pt-1">
             <a href={c.telegram} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-gold"><Send className="h-4 w-4" />Telegram</a>
             <a href={c.instagram} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-gold"><Instagram className="h-4 w-4" />Instagram</a>
@@ -197,13 +201,14 @@ export function Footer() {
         </div>
       </div>
       <p className="mx-auto mt-12 max-w-7xl border-t border-on-dark/10 px-5 pt-6 text-xs text-on-dark-muted lg:px-8">
-        © {new Date().getFullYear()} {restaurant.name}. Barcha huquqlar himoyalangan.
+        © {new Date().getFullYear()} {restaurant.name}. {t("Barcha huquqlar himoyalangan.")}
       </p>
     </footer>
   );
 }
 
 export function MobileBar() {
+  const { t, language } = useLanguage();
   const c = restaurant.contact;
   const [open, setOpen] = useState(false);
   const item = "flex min-h-14 flex-1 flex-col items-center justify-center gap-1 text-[0.7rem] text-gold";
@@ -211,7 +216,7 @@ export function MobileBar() {
     <>
       {open && <div className="fixed inset-0 z-30 lg:hidden" onClick={() => setOpen(false)} aria-hidden="true" />}
       {open && (
-        <div className="fixed inset-x-3 bottom-[4.25rem] z-40 animate-fade-up rounded-2xl border border-gold/20 bg-forest-deep p-2 shadow-card lg:hidden" role="menu" aria-label="Raqamni tanlang">
+        <div className="fixed inset-x-3 bottom-[4.25rem] z-40 animate-fade-up rounded-2xl border border-gold/20 bg-forest-deep p-2 shadow-card lg:hidden" role="menu" aria-label={t('Raqamni tanlang')}>
           {c.phones.map((p) => (
             <a key={p} href={telHref(p)} role="menuitem" onClick={() => setOpen(false)} className="flex min-h-12 items-center gap-3 rounded-xl px-4 text-on-dark hover:bg-forest">
               <Phone className="h-4 w-4 text-gold" /> {p}
@@ -219,10 +224,10 @@ export function MobileBar() {
           ))}
         </div>
       )}
-      <nav className="fixed inset-x-0 bottom-0 z-40 flex border-t border-gold/20 bg-forest-deep/95 backdrop-blur lg:hidden" aria-label="Tezkor amallar">
-        <a href="#menyu" className={item}><UtensilsCrossed className="h-5 w-5" strokeWidth={1.4} />Menyu</a>
-        <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className={item}><Phone className="h-5 w-5" strokeWidth={1.4} />Qo‘ng‘iroq</button>
-        <a href={c.mapUrl} target="_blank" rel="noopener noreferrer" className={item}><MapPin className="h-5 w-5" strokeWidth={1.4} />Manzil</a>
+      <nav className="fixed inset-x-0 bottom-0 z-40 flex border-t border-gold/20 bg-forest-deep/95 backdrop-blur lg:hidden" aria-label={t('Tezkor amallar')}>
+        <a href="#menyu" className={item}><UtensilsCrossed className="h-5 w-5" strokeWidth={1.4} />{t('Menyu')}</a>
+        <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className={item}><Phone className="h-5 w-5" strokeWidth={1.4} />{t('Qo‘ng‘iroq')}</button>
+        <a href={c.mapUrl} target="_blank" rel="noopener noreferrer" className={item}><MapPin className="h-5 w-5" strokeWidth={1.4} />{t('Manzil')}</a>
       </nav>
     </>
   );
