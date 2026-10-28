@@ -5,9 +5,9 @@ import { MenuSection } from "@/components/site/MenuSection";
 import { About, Contact, Footer, Gallery, MobileBar } from "@/components/site/Sections";
 import { restaurant } from "@/config/restaurant";
 import { ReservationSection } from "@/components/site/ReservationSection";
+import { metadata } from "@/i18n/translations";
 
-const title = "Rustambek Choyxona — Milliy ta’m, samimiy muhit";
-const description = "An’anaviy o‘zbek taomlari va unutilmas choyxona muhiti: osh, somsa, shashlik, lagʻmon va ko‘k choy.";
+const { title, description } = metadata.uz;
 
 function structuredData() {
   const c = restaurant.contact;

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { booking } from "@/config/booking";
+import { translate, type Language } from "@/i18n/translations";
 
 export type BookingValues = { name: string; phone: string; date: string; time: string; guests: string; note: string };
 export const emptyBooking: BookingValues = { name: "", phone: "", date: "", time: "", guests: "", note: "" };
@@ -21,7 +22,8 @@ export function availableSlots(date: string, now: Date) {
   return arrivalSlots.filter((slot) => date > current.date || Number(slot.slice(0, 2)) * 3600 + Number(slot.slice(3)) * 60 >= current.seconds);
 }
 
-export function bookingSchema(now: Date) {
+export function bookingSchema(now: Date, language: Language = "uz") {
+  const t = (text: string) => translate(text, language);
   return z.object({
     name: z.string().trim().min(1, "Iltimos, ismingizni kiriting.").max(100, "Ismingiz 100 belgidan oshmasin.").regex(/^[\p{L}\p{M}\s‘’ʻʼ'`.\-]+$/u, "Ismingizni to‘g‘ri kiriting."),
     phone: z.string().trim().regex(/^[+\d\s()\-]+$/, "Telefon raqamingizni to‘g‘ri kiriting.").refine((phone) => /^\+998\d{9}$/.test(phone.replace(/[\s()\-]/g, "")), "Telefon raqamingizni to‘g‘ri kiriting."),
@@ -34,8 +36,8 @@ export function bookingSchema(now: Date) {
   });
 }
 
-export function formatBookingDate(date: string) {
-  return new Intl.DateTimeFormat("uz-Latn-UZ", { timeZone: booking.timeZone, day: "numeric", month: "long", year: "numeric" }).format(new Date(`${date}T12:00:00Z`));
+export function formatBookingDate(date: string, language: Language = "uz") {
+  return new Intl.DateTimeFormat(language === "en" ? "en-GB" : "uz-Latn-UZ", { timeZone: booking.timeZone, day: "numeric", month: "long", year: "numeric" }).format(new Date(`${date}T12:00:00Z`));
 }
 
 export function formatPhone(phone: string) {
@@ -43,10 +45,11 @@ export function formatPhone(phone: string) {
   return `+${digits.slice(0, 3)} ${digits.slice(3, 5)} ${digits.slice(5, 8)} ${digits.slice(8, 10)} ${digits.slice(10, 12)}`;
 }
 
-export function bookingMessage(values: BookingValues) {
+export function bookingMessage(values: BookingValues, language: Language = "uz") {
+  if (language === "en") return ["TABLE RESERVATION REQUEST", "", "Hello! I would like to request a table at Rustambek Choyxona.", "", `Name: ${values.name.trim()}`, `Phone: ${formatPhone(values.phone)}`, `Date: ${values.date} (${formatBookingDate(values.date, language)})`, `Arrival time: ${values.time} (Asia/Tashkent, UTC+5)`, `Number of guests: ${values.guests}`, ...(values.note.trim() ? [`Additional requests: ${values.note.trim()}`] : []), "", "Please confirm whether a table is available for this date and time."].join("\n");
   return ["JOY BAND QILISH SO‘ROVI", "", "Assalomu alaykum!", "", "Rustambek Choyxonadan joy band qilmoqchiman.", "", `Ism: ${values.name.trim()}`, `Telefon: ${formatPhone(values.phone)}`, `Sana: ${formatBookingDate(values.date)}`, `Vaqt: ${values.time}`, `Mehmonlar soni: ${values.guests} kishi`, ...(values.note.trim() ? [`Qo‘shimcha izoh: ${values.note.trim()}`] : []), "", "Iltimos, shu sana va vaqtda bo‘sh joy borligini tasdiqlang."].join("\n");
 }
 
-export function telegramBookingUrl(values: BookingValues) {
-  return `https://t.me/${booking.recipient}?text=${encodeURIComponent(bookingMessage(values))}`;
+export function telegramBookingUrl(values: BookingValues, language: Language = "uz") {
+  return `https://t.me/${booking.recipient}?text=${encodeURIComponent(bookingMessage(values, language))}`;
 }
