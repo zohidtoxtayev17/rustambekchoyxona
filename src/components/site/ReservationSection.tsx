@@ -22,7 +22,13 @@ export function ReservationSection() {
   const { t, language } = useLanguage();
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState<1 | 2>(1);
-  const [now, setNow] = useState<Date | null>{t('(null);\n  const [calendarOpen, setCalendarOpen] = useState(false);\n  const [eightPlus, setEightPlus] = useState(false);\n  const [copyStatus, setCopyStatus] = useState("");\n  const [manualCopy, setManualCopy] = useState(false);\n  const summaryRef = useRef')}<HTMLHeadingElement>{t('(null);\n  const copyRef = useRef')}<HTMLTextAreaElement>(null);
+  const [now, setNow] = useState<Date | null>(null);
+  const [calendarOpen, setCalendarOpen] = useState(false);
+  const [eightPlus, setEightPlus] = useState(false);
+  const [copyStatus, setCopyStatus] = useState("");
+  const [manualCopy, setManualCopy] = useState(false);
+  const summaryRef = useRef<HTMLHeadingElement>(null);
+  const copyRef = useRef<HTMLTextAreaElement>(null);
   const { register, watch, getValues, setValue, setError, clearErrors, setFocus, formState: { errors } } = useForm<BookingValues>({ defaultValues: emptyBooking });
   const values = watch();
   const current = now ? tashkentNow(now) : null;
@@ -78,7 +84,7 @@ export function ReservationSection() {
       setCopyStatus("Xabarni quyidagi maydondan qo‘lda nusxalang.");
     }
   };
-  const error = (field: keyof BookingValues) =>{t('errors[field] ?')}<p id={`booking-${field}-error`} className="mt-1 text-sm text-destructive" role="alert">{t(errors[field]?.message ?? "")}</p> : null;
+  const error = (field: keyof BookingValues) => errors[field] ? <p id={`booking-${field}-error`} className="mt-1 text-sm text-destructive" role="alert">{t(errors[field]?.message ?? "")}</p> : null;
   const a11y = (field: keyof BookingValues) => ({ "aria-invalid": Boolean(errors[field]), "aria-describedby": errors[field] ? `booking-${field}-error` : undefined });
   const selectedDate = values.date ? new Date(`${values.date}T12:00:00`) : undefined;
   const today = current ? new Date(`${current.date}T12:00:00`) : undefined;

@@ -76,7 +76,8 @@ export function MenuSection() {
   const [cat, setCat] = useState<CategoryId | "favorites">("all");
   const { favorites, toggle } = useFavorites();
   const [q, setQ] = useState("");
-  const [highlight, setHighlight] = useState<string | null>{t('(null);\n  const [suggestion, setSuggestion] = useState')}<Dish | null>(null);
+  const [highlight, setHighlight] = useState<string | null>(null);
+  const [suggestion, setSuggestion] = useState<Dish | null>(null);
 
   const filtered = useMemo(() => {
     const s = q.trim().toLocaleLowerCase("uz");
@@ -161,7 +162,7 @@ export function MenuSection() {
           <h3 className="mt-4 text-3xl text-on-dark md:text-4xl">{t('Nima tanlasam ekan?')}</h3>
           <p className="mt-2 text-on-dark-muted">{t('Bugun qaysi taomni tatib ko‘rishni bilmayapsizmi?')}</p>
           <button onClick={suggest} className="mt-6 min-h-12 rounded-full bg-gold px-7 text-sm font-semibold text-forest-deep transition-colors hover:bg-gold-soft">
-            Taom tavsiya qil
+            {t('Taom tavsiya qil')}
           </button>
           <div aria-live="polite" className="min-h-0">
             {suggestion && (
@@ -172,7 +173,7 @@ export function MenuSection() {
                   <p className="font-serif text-2xl text-on-dark">{localizedDish(suggestion, language).name}</p>
                 </div>
                 <button onClick={() => focusDish(suggestion.id)} className="group inline-flex min-h-11 items-center gap-1 px-2 text-sm text-gold">
-                  Ko‘rish <ArrowRight className="h-4 w-4 transition-transform arrow-nudge" />
+                  {t("Ko‘rish")} <ArrowRight className="h-4 w-4 transition-transform arrow-nudge" />
                 </button>
               </div>
             )}

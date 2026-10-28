@@ -16,16 +16,16 @@ export function About() {
     <section id="biz-haqimizda" className="bg-forest py-20 md:py-28">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 md:grid-cols-2 lg:gap-20 lg:px-8">
         <Reveal>
-          <img src={restaurant.aboutImage} alt="Choyxona uslubidagi shinam burchak (namuna rasm)" loading="lazy" width={864} height={1088} className="aspect-[4/5] w-full rounded-2xl object-cover" />
+          <img src={restaurant.aboutImage} alt={t('Choyxona uslubidagi shinam burchak (namuna rasm)')} loading="lazy" width={864} height={1088} className="aspect-[4/5] w-full rounded-2xl object-cover" />
         </Reveal>
         <Reveal>
           <Ornament />
           <h2 className="mt-5 text-4xl text-on-dark md:text-5xl">{t('Biz haqimizda')}</h2>
           <p className="mt-6 font-serif text-2xl leading-snug text-gold-soft">
-            Rustambek Choyxona — milliy ta’mlar va samimiy suhbatlar uyg‘unlashadigan maskan.
+            {t('Rustambek Choyxona — milliy ta’mlar va samimiy suhbatlar uyg‘unlashadigan maskan.')}
           </p>
           <p className="mt-5 leading-relaxed text-on-dark-muted">
-            Bu yerda har bir mehmon aziz. Issiq choy, qozondan uzilgan taom va shoshilmasdan o‘tkaziladigan suhbat — choyxona an’anasining eng go‘zal jihatlari.
+            {t('Bu yerda har bir mehmon aziz. Issiq choy, qozondan uzilgan taom va shoshilmasdan o‘tkaziladigan suhbat — choyxona an’anasining eng go‘zal jihatlari.')}
           </p>
           <ul className="mt-10 grid gap-6 sm:grid-cols-3">
             {items.map(({ icon: Icon, label }) => (
@@ -43,7 +43,8 @@ export function About() {
 
 export function Gallery() {
   const { t, language } = useLanguage();
-  const [idx, setIdx] = useState<number | null>{t('(null);\n  const touch = useRef')}<number | null>(null);
+  const [idx, setIdx] = useState<number | null>(null);
+  const touch = useRef<number | null>(null);
   const close = () => setIdx(null);
   const step = useCallback((d: number) => setIdx((i) => (i === null ? i : (i + d + gallery.length) % gallery.length)), []);
 
@@ -86,7 +87,7 @@ export function Gallery() {
           onTouchEnd={(e) => {
             if (touch.current === null) return;
             const dx = (e.changedTouches[0]?.clientX ?? touch.current) - touch.current;
-            if (Math.abs(dx) >{t('50) step(dx')}< 0 ? 1 : -1);
+            if (Math.abs(dx) >50) step(dx< 0 ? 1 : -1);
             touch.current = null;
           }}
         >

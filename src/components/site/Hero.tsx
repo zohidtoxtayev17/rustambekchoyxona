@@ -8,7 +8,7 @@ export function Hero() {
   const { t, language } = useLanguage();
   return (
     <section id="bosh" className="relative flex min-h-[88svh] items-end overflow-hidden bg-forest-deep md:min-h-[92vh] md:items-center">
-      <img src={restaurant.heroImage} alt="An’anaviy o‘zbek choyxonasi muhiti (namuna rasm)" width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover object-[70%_center]" />
+      <img src={restaurant.heroImage} alt={t('An’anaviy o‘zbek choyxonasi muhiti (namuna rasm)')} width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover object-[70%_center]" />
       <div className="absolute inset-0 hidden bg-hero-overlay md:block" />
       <div className="absolute inset-0 bg-hero-overlay-mobile md:hidden" />
       <div className="relative mx-auto w-full max-w-7xl px-5 pb-16 pt-28 lg:px-8">
@@ -33,7 +33,7 @@ export function Hero() {
               Menyuni ko‘rish <ArrowRight className="h-4 w-4 arrow-nudge" />
             </a>
             <a href="#biz-haqimizda" className="min-h-12 content-center text-sm text-on-dark underline-offset-8 hover:text-gold hover:underline">
-              Biz haqimizda
+              {t('Biz haqimizda')}
             </a>
           </div>
         </div>
