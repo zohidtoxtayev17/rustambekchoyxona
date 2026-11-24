@@ -6,7 +6,7 @@ import { Brand, Ornament, Reveal, nav, telHref } from "./common";
 import { OpeningStatus } from "./OpeningStatus";
 
 export function About() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const items = [
     { icon: UtensilsCrossed, label: "Milliy taomlar" },
     { icon: HeartHandshake, label: "Samimiy muhit" },
@@ -42,7 +42,7 @@ export function About() {
 }
 
 export function Gallery() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [idx, setIdx] = useState<number | null>(null);
   const touch = useRef<number | null>(null);
   const close = () => setIdx(null);
@@ -105,7 +105,7 @@ export function Gallery() {
 }
 
 function ActionLink({ href, icon: Icon, label }: { href: string; icon: typeof Phone; label: string }) {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   if (!href)
     return (
       <span className="inline-flex min-h-12 cursor-not-allowed items-center gap-2 rounded-full border border-dashed border-input px-5 text-sm text-muted-foreground" title={t('Ma’lumot hali kiritilmagan')} aria-disabled="true">
@@ -121,7 +121,7 @@ function ActionLink({ href, icon: Icon, label }: { href: string; icon: typeof Ph
 }
 
 export function Contact() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const c = restaurant.contact;
   return (
     <section id="aloqa" className="border-t bg-cream py-20 md:py-28">
@@ -182,7 +182,7 @@ export function Contact() {
 }
 
 export function Footer() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const c = restaurant.contact;
   return (
     <footer className="bg-forest-deep pb-28 pt-14 lg:pb-14">
@@ -209,7 +209,7 @@ export function Footer() {
 }
 
 export function MobileBar() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const c = restaurant.contact;
   const [open, setOpen] = useState(false);
   const item = "flex min-h-14 flex-1 flex-col items-center justify-center gap-1 text-[0.7rem] text-gold";

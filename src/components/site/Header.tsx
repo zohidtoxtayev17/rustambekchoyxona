@@ -5,7 +5,7 @@ import { restaurant } from "@/config/restaurant";
 import { Brand, nav, telHref } from "./common";
 
 export function Header() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const phone = restaurant.contact.phone;
@@ -35,7 +35,7 @@ export function Header() {
         <div className="flex items-center gap-2">
           <div className="hidden lg:block"><LanguageSwitcher /></div>
           {phone ? (
-            <a href={telHref(phone)} className="hidden items-center gap-2 rounded-full border border-gold/50 px-3 py-2.5 text-sm text-gold transition-colors hover:bg-gold hover:text-forest-deep lg:inline-flex">
+            <a href={telHref(phone)} aria-label={t("Qo‘ng‘iroq qilish")} className="hidden items-center gap-2 rounded-full border border-gold/50 px-3 py-2.5 text-sm text-gold transition-colors hover:bg-gold hover:text-forest-deep lg:inline-flex">
               <Phone className="h-4 w-4" /><span className="hidden xl:inline">{t("Qo‘ng‘iroq qilish")}</span></a>
           ) : (
             <a href="#aloqa" className="hidden rounded-full border border-gold/40 px-3 py-2.5 text-sm text-gold transition-colors hover:bg-gold hover:text-forest-deep lg:inline-flex">

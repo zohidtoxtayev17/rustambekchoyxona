@@ -25,14 +25,14 @@ export function availableSlots(date: string, now: Date) {
 export function bookingSchema(now: Date, language: Language = "uz") {
   const t = (text: string) => translate(text, language);
   return z.object({
-    name: z.string().trim().min(1, "Iltimos, ismingizni kiriting.").max(100, "Ismingiz 100 belgidan oshmasin.").regex(/^[\p{L}\p{M}\s‘’ʻʼ'`.\-]+$/u, "Ismingizni to‘g‘ri kiriting."),
-    phone: z.string().trim().regex(/^[+\d\s()\-]+$/, "Telefon raqamingizni to‘g‘ri kiriting.").refine((phone) => /^\+998\d{9}$/.test(phone.replace(/[\s()\-]/g, "")), "Telefon raqamingizni to‘g‘ri kiriting."),
-    date: z.string().refine((date) => /^\d{4}-\d{2}-\d{2}$/.test(date) && !Number.isNaN(Date.parse(`${date}T12:00:00Z`)) && new Date(`${date}T12:00:00Z`).toISOString().slice(0, 10) === date && date >= tashkentNow(now).date, "Bugungi yoki keyingi sanani tanlang."),
+    name: z.string().trim().min(1, t("Iltimos, ismingizni kiriting.")).max(100, t("Ismingiz 100 belgidan oshmasin.")).regex(/^[\p{L}\p{M}\s‘’ʻʼ'`.\-]+$/u, t("Ismingizni to‘g‘ri kiriting.")),
+    phone: z.string().trim().regex(/^[+\d\s()\-]+$/, t("Telefon raqamingizni to‘g‘ri kiriting.")).refine((phone) => /^\+998\d{9}$/.test(phone.replace(/[\s()\-]/g, "")), t("Telefon raqamingizni to‘g‘ri kiriting.")),
+    date: z.string().refine((date) => /^\d{4}-\d{2}-\d{2}$/.test(date) && !Number.isNaN(Date.parse(`${date}T12:00:00Z`)) && new Date(`${date}T12:00:00Z`).toISOString().slice(0, 10) === date && date >= tashkentNow(now).date, t("Bugungi yoki keyingi sanani tanlang.")),
     time: z.string(),
-    guests: z.string().regex(/^[1-9]\d*$/, "Mehmonlar sonini tanlang.").refine((value) => Number.isSafeInteger(Number(value)), "Mehmonlar sonini to‘g‘ri kiriting."),
-    note: z.string().trim().max(booking.noteLimit, "Izoh 300 belgidan oshmasin."),
+    guests: z.string().regex(/^[1-9]\d*$/, t("Mehmonlar sonini tanlang.")).refine((value) => Number.isSafeInteger(Number(value)), t("Mehmonlar sonini to‘g‘ri kiriting.")),
+    note: z.string().trim().max(booking.noteLimit, t("Izoh 300 belgidan oshmasin.")),
   }).superRefine((values, context) => {
-    if (!availableSlots(values.date, now).includes(values.time)) context.addIssue({ code: z.ZodIssueCode.custom, path: ["time"], message: "Kelish uchun amaldagi vaqtni tanlang." });
+    if (!availableSlots(values.date, now).includes(values.time)) context.addIssue({ code: z.ZodIssueCode.custom, path: ["time"], message: t("Kelish uchun amaldagi vaqtni tanlang.") });
   });
 }
 

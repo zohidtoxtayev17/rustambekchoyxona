@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { isRestaurantOpen } from "@/lib/restaurant-utilities";
 
 export function OpeningStatus() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [open, setOpen] = useState<boolean | null>(null);
   useEffect(() => {
     const update = () => setOpen(isRestaurantOpen(new Date()));
